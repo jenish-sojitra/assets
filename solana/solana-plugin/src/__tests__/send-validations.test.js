@@ -265,7 +265,7 @@ describe('sendValidationsFactory', () => {
         destinationAddress: 'address',
         sendAmount: asset.currency.baseUnit(100),
         baseAssetBalance: asset.currency.ZERO,
-        feeAmount: asset.currency.ZERO,
+        fees: { fee: asset.currency.ZERO },
       })
 
       expect(isValid).toBe(false)

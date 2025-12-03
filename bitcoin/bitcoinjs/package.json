@@ -1,0 +1,53 @@
+{
+  "name": "@exodus/bitcoinjs",
+  "version": "2.1.0",
+  "description": "Wrapper around bitcoinjs-lib, initialized",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./message": "./src/message.js",
+    "./dogecoin": "./src/dogecoin.js"
+  },
+  "files": [
+    "dogecoin.js",
+    "message.js",
+    "src",
+    "!src/**/__tests__",
+    "CHANGELOG.md"
+  ],
+  "types": "src/index.d.ts",
+  "homepage": "https://github.com/ExodusMovement/assets/tree/master/bitcoin/bitcoinjs",
+  "author": "Exodus Movement, Inc.",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "restricted",
+    "provenance": false
+  },
+  "scripts": {
+    "test": "run -T exodus-test --jest",
+    "lint": "run -T eslintc .",
+    "lint:fix": "yarn lint --fix"
+  },
+  "dependencies": {
+    "@exodus/crypto": "^1.0.0-rc.29",
+    "bip174": "^2.1.1",
+    "bitcoinjs-lib": "^6.1.7",
+    "varuint-bitcoin": "^1.0.1"
+  },
+  "devDependencies": {
+    "@exodus/assets-testing": "workspace:^",
+    "@exodus/test": "^1.0.0-rc.72",
+    "@noble/secp256k1": "^1.7.1",
+    "bech32": "^1.1.3",
+    "bs58check": "^3.0.1",
+    "wif": "^4.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ExodusMovement/assets/issues?q=is%3Aissue+is%3Aopen+label%3Abitcoinjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ExodusMovement/assets.git"
+  }
+}

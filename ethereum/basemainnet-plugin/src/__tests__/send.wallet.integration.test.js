@@ -17,8 +17,10 @@ describe(`basemainnet send transfer integration test`, () => {
     walletAccountCount: 2,
     beforeEach: ({ asset }) => {
       jest.spyOn(asset.server, 'ethCall').mockImplementation(({ to, data }) => {
-        if (to === '0x420000000000000000000000000000000000000F' && l1Simulation[data])
+        if (to === '0x420000000000000000000000000000000000000F' && l1Simulation[data]) {
           return l1Simulation[data]
+        }
+
         throw new Error('Should not go here! ' + data)
       })
     },
@@ -47,19 +49,6 @@ describe(`basemainnet send transfer integration test`, () => {
           //
           ...deps,
           isSendAll: true,
-        })
-      },
-
-      'Send some eth from first to second portfolio with provided feeAmount': async (deps) => {
-        l1Simulation = {
-          '0x49948e0e0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000003402f2822105138401312d00840d1cef0082520894f6c138c36341138ddfc314a11038da8264b7ef0986b5e620f4800080c0808080000000000000000000000000':
-            '0x00000000000000000000000000000000000000000000000000000001921f8f2b',
-        }
-        return sendEvmTest({
-          //
-          ...deps,
-          amount: '200000000000000 wei',
-          options: { feeAmount: deps.asset.currency.baseUnit(1_234_433_136_375) },
         })
       },
     },

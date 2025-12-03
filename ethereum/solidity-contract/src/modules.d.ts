@@ -1,5 +1,9 @@
-declare module '@exodus/crypto/keccak' {
-  export function keccak256(data: Buffer | string): Buffer
+declare module '@exodus/crypto/hash' {
+  export function hashSync(
+    algo: string,
+    data: Buffer | Uint8Array | string,
+    format?: string
+  ): Buffer | Uint8Array | string
 }
 
 declare module '@exodus/ethereumjs/util' {

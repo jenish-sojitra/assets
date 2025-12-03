@@ -18,7 +18,7 @@ const importSafeReportFile = path.join(
   './monitor-ordinals-enabled-safe-report-with-inscriptions.json'
 )
 
-describe(`bitcoin inscriptions tx-send test`, () => {
+describe.skip(`bitcoin inscriptions tx-send test - DISABLED: Ordinals feature removed`, () => {
   afterEach(() => {
     jest.clearAllMocks()
     jest.restoreAllMocks()

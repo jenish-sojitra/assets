@@ -7,6 +7,7 @@ node_modules
 **/private-seed.mjs
 **/.cache/
 **/temp-*.json
+**/temp-*.yaml
 **/temp-*.js
 **/lib/
 

@@ -1,11 +1,11 @@
-import { keccak256 } from '@exodus/crypto/keccak'
+import { hashSync } from '@exodus/crypto/hash'
 import { bufferToHex, toBuffer } from '@exodus/ethereumjs/util'
 import { defaultAbiCoder } from '@exodus/ethersproject-abi'
 
 import { HexOrBuffer } from './types.js'
 
 export function sha3(data: HexOrBuffer): string {
-  return bufferToHex(keccak256(data))
+  return `0x${hashSync('keccak256', data, 'hex')}`
 }
 
 interface Input {

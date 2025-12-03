@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.0](https://github.com/ExodusMovement/assets/compare/@exodus/asset-lib@5.6.0...@exodus/asset-lib@5.7.0) (2025-11-25)
+
+
+### Features
+
+
+* feat: add support for batching in base monitor (#6982)
+
+
+
 ## [5.6.0](https://github.com/ExodusMovement/assets/compare/@exodus/asset-lib@5.5.0...@exodus/asset-lib@5.6.0) (2025-09-04)
 
 

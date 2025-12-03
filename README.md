@@ -165,7 +165,9 @@ For more options to `yarn release`, see the [CLI docs](https://github.com/Exodus
 All packages that received a version bump in the previous step are automatically published to npm after merging
 the release PR. The tags listed in the PR body will be added to the merge commit.
 
-Initial versions can be published by manually executing [the publish workflow](https://github.com/ExodusMovement/assets/actions/workflows/publish.yaml). All packages with versions not currently present in the registry will be published. If unclear how to run the publish workfow, please follow [these](https://user-images.githubusercontent.com/2863630/203893329-f0eca8d0-4f8c-4ccb-abc2-65bfd819fa61.png) instructions.
+#### Initial Release
+
+When you add a new package, you must initially publish it manually. After it is published, ping an npm admin to set up OIDC automated publishing and lock down package access.
 
 ### Backfix
 

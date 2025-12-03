@@ -19,6 +19,7 @@ test('Solana: get Stake fee', async () => {
   const feeData = solana.api.getFeeData()
   const { fee } = await solana.api.getFeeAsync({
     asset: solana,
+    walletAccount: 'exodus_0',
     method: 'delegate',
     feeData,
     amount,
@@ -26,7 +27,7 @@ test('Solana: get Stake fee', async () => {
     fromAddress: toAddress,
     stakingInfo,
   })
-  expect(fee).toEqual(solana.currency.parse('5450 Lamports'))
+  expect(fee).toEqual(solana.currency.parse('0.0025 SOL'))
 })
 
 test('Solana: get Withdraw fee', async () => {
@@ -75,6 +76,7 @@ test('Solana: get Withdraw fee', async () => {
   const feeData = solana.api.getFeeData()
   const { fee } = await solana.api.getFeeAsync({
     asset: solana,
+    walletAccount: 'exodus_0',
     method: 'withdraw',
     feeData,
     toAddress,

@@ -1,0 +1,56 @@
+{
+  "name": "@exodus/ethereumjs",
+  "version": "1.8.0",
+  "description": "APIs replacing ethereumjs-* packages",
+  "type": "module",
+  "exports": {
+    "./ethers5-address": "./src/ethers5/address/index.js",
+    "./eth-sig-util": "./src/eth-sig-util/index.js",
+    "./common": "./src/common/index.js",
+    "./tx": "./src/tx/index.js",
+    "./util": "./src/util/index.js"
+  },
+  "files": [
+    "common.js",
+    "tx.js",
+    "util.js",
+    "eth-sig-util.js",
+    "ethers5-address.js",
+    "src",
+    "!src/**/__tests__",
+    "CHANGELOG.md"
+  ],
+  "homepage": "https://github.com/ExodusMovement/assets/tree/master/ethereum/ethereumjs",
+  "author": "Exodus Movement, Inc.",
+  "license": "ISC",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "scripts": {
+    "test": "run -T exodus-test --jest",
+    "lint": "run -T eslintc .",
+    "lint:fix": "yarn lint --fix"
+  },
+  "dependencies": {
+    "@exodus/crypto": "^1.0.0-rc.26",
+    "bn.js": "^5.1.2",
+    "crc-32": "^1.2.0",
+    "ethjs-util": "^0.1.6",
+    "events": "^3.3.0",
+    "minimalistic-assert": "^1.0.1",
+    "rlp": "^2.2.4"
+  },
+  "devDependencies": {
+    "@exodus/test": "^1.0.0-rc.72",
+    "@types/bn.js": "^5",
+    "@types/ethjs-util": "^0",
+    "@types/minimalistic-assert": "^1"
+  },
+  "bugs": {
+    "url": "https://github.com/ExodusMovement/assets/issues?q=is%3Aissue+is%3Aopen+label%3Aethereumjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ExodusMovement/assets.git"
+  }
+}

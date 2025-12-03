@@ -1,4 +1,4 @@
-import { getPrivateSeed, walletTester } from '@exodus/assets-testing'
+import { walletTester } from '@exodus/assets-testing'
 import { convertForSnapshot } from '@exodus/ethereum-api/src/__tests__/eth-test-utils.js'
 
 import assetPlugin from '../index.js'
@@ -9,7 +9,7 @@ describe('matic async fees for nfts', () => {
   walletTester({
     assetPlugin,
     assetName: 'matic',
-    seed: getPrivateSeed(),
+    mockAddresses: ['0x464F62159e067a8C231b5c3F9A7144E191750051'],
     tests: {
       'get fee for nft 1155': async ({ asset, fees: feesModule, assetClientInterface }) => {
         const nft = {

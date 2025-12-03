@@ -1,5 +1,5 @@
 import { toBuffer } from '@exodus/ethereumjs/util'
-import test from '@exodus/test/tape' // eslint-disable-line @exodus/import/no-unresolved -- eslint doesn't understand "exports" in package.json
+import test from '@exodus/test/tape'
 
 import erc20Abi from '../lib/fixtures/erc20-abi.js'
 import Contract from '../lib/index.js'

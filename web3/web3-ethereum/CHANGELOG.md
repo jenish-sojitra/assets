@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.6.0](https://github.com/ExodusMovement/assets/compare/@exodus/web3-ethereum@13.5.0...@exodus/web3-ethereum@13.6.0) (2025-11-11)
+
+
+### Features
+
+
+* feat: use fallback permission when handling `wallet_requestPermissions` (#6912)
+
+
+
 ## [13.5.0](https://github.com/ExodusMovement/assets/compare/@exodus/web3-ethereum@13.4.0...@exodus/web3-ethereum@13.5.0) (2025-07-24)
 
 

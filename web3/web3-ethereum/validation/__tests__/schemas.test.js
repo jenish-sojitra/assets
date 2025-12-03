@@ -560,6 +560,12 @@ describe('parseAndValidateRequest', () => {
     },
     {
       jsonrpc: '2.0',
+      method: 'wallet_requestPermissions',
+      params: [],
+      id: '3d748fba-2f33-410d-9ab3-3272a7cc0d25',
+    },
+    {
+      jsonrpc: '2.0',
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: '0x89' }],
       id: '3d748fba-2f33-410d-9ab3-3272a7cc0d25',
@@ -921,12 +927,6 @@ describe('parseAndValidateRequest', () => {
     {
       jsonrpc: '2.0',
       method: 'wallet_requestPermissions',
-      params: [],
-      id: '3d748fba-2f33-410d-9ab3-3272a7cc0d25',
-    },
-    {
-      jsonrpc: '2.0',
-      method: 'wallet_requestPermissions',
       params: ['invalid'],
       id: '3d748fba-2f33-410d-9ab3-3272a7cc0d25',
     },
@@ -951,12 +951,6 @@ describe('parseAndValidateRequest', () => {
     {
       jsonrpc: '2.0',
       method: 'wallet_revokePermissions',
-      params: [],
-      id: '3d748fba-2f33-410d-9ab3-3272a7cc0d25',
-    },
-    {
-      jsonrpc: '2.0',
-      method: 'wallet_revokePermissions',
       params: ['invalid'],
       id: '3d748fba-2f33-410d-9ab3-3272a7cc0d25',
     },
@@ -964,12 +958,6 @@ describe('parseAndValidateRequest', () => {
       jsonrpc: '2.0',
       method: 'wallet_revokePermissions',
       params: [{ invalid: {} }],
-      id: '3d748fba-2f33-410d-9ab3-3272a7cc0d25',
-    },
-    {
-      jsonrpc: '2.0',
-      method: 'wallet_revokePermissions',
-      params: [{ eth_accounts: [] }],
       id: '3d748fba-2f33-410d-9ab3-3272a7cc0d25',
     },
     {

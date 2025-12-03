@@ -1,7 +1,7 @@
 {
   "name": "@exodus/web3-ethereum",
   "description": "Apps connectivity library for EVM-compatible chains.",
-  "version": "13.5.0",
+  "version": "13.6.0",
   "type": "module",
   "sideEffects": false,
   "module": "lib/index.js",
@@ -22,7 +22,8 @@
     "lib/**/*.js"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": false
   },
   "repository": {
     "type": "git",

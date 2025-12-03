@@ -1,20 +1,22 @@
-import {
-  FeeMarketEIP1559Transaction,
-  Transaction as LegacyTransaction,
-} from '@exodus/ethereumjs/tx'
+import { getEthereumJsTxByTransactionBuffer } from '@exodus/ethereum-lib'
 import SolidityContract from '@exodus/solidity-contract'
 
 import type { EthTransaction } from './types.js'
 import type { ApprovalBalanceChange } from '@exodus/web3-types'
 
-export function getTransactionId(
-  serializedTransaction: Buffer,
-  isEIP1559Transaction = false,
-): string {
-  const Transaction = isEIP1559Transaction
-    ? FeeMarketEIP1559Transaction
-    : LegacyTransaction
-  const transaction = Transaction.fromSerializedTx(serializedTransaction)
+export function getTransactionId({
+  chainId,
+  serializedTransaction,
+}: {
+  chainId: number
+  serializedTransaction: Buffer
+  eip1559Enabled?: boolean
+}): string {
+  const transaction = getEthereumJsTxByTransactionBuffer({
+    chainId,
+    transactionBuffer: serializedTransaction,
+  })
+
   return `0x${transaction.hash().toString('hex')}`
 }
 
@@ -48,20 +50,22 @@ export const getTxFeeDetails = (transaction: EthTransaction) => {
   }
 }
 
-export function decodeRecipientAddresses(transaction: EthTransaction): string[] {
+export function decodeRecipientAddresses(
+  transaction: EthTransaction,
+): string[] {
   try {
-    if(!transaction.to){
+    if (!transaction.to) {
       return []
     }
 
-    if(isSimpleTransfer(transaction)) {
+    if (isSimpleTransfer(transaction)) {
       return [transaction.to]
     }
 
     const token = SolidityContract.erc20(transaction.to)
     const { method, values } = token.decodeInput(transaction.data)
 
-    if(method === 'transfer') {
+    if (method === 'transfer') {
       return [values[0]]
     }
 

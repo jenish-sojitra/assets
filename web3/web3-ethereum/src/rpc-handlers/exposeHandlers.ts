@@ -468,9 +468,13 @@ export function exposeHandlers(rpc: RPC, deps: AppDeps & EVMDeps & WalletDeps) {
   exposeEvmFunction(
     'wallet_requestPermissions',
     async (
-      requestedPermissions: Record<EthParentCapability, Record<string, never>>,
+      requestedPermissions: Record<
+        EthParentCapability,
+        Record<string, never>
+      > = { [ETH_ACCOUNTS_PERMISSION]: {} },
     ): Promise<EthWalletPermission[]> => {
       const parentCapability = Object.keys(requestedPermissions)[0]
+
       if (parentCapability !== ETH_ACCOUNTS_PERMISSION) {
         // `eth_accounts` is currently the only permission.
         // See: https://docs.metamask.io/guide/rpc-api.html#restricted-methods.

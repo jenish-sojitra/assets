@@ -3,6 +3,74 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.0](https://github.com/ExodusMovement/assets/compare/@exodus/bitcoin-plugin@2.3.0...@exodus/bitcoin-plugin@2.4.0) (2025-11-03)
+
+
+### Features
+
+
+* feat: support legacy chain index needed by desktop only (#6630)
+
+
+
+## [2.3.0](https://github.com/ExodusMovement/assets/compare/@exodus/bitcoin-plugin@2.2.2...@exodus/bitcoin-plugin@2.3.0) (2025-10-14)
+
+
+### Features
+
+
+* feat: add selfSend feature flag (#6621)
+
+
+
+## [2.2.2](https://github.com/ExodusMovement/assets/compare/@exodus/bitcoin-plugin@2.2.1...@exodus/bitcoin-plugin@2.2.2) (2025-10-14)
+
+**Note:** Version bump only for package @exodus/bitcoin-plugin
+
+
+
+
+
+## [2.2.1](https://github.com/ExodusMovement/assets/compare/@exodus/bitcoin-plugin@2.2.0...@exodus/bitcoin-plugin@2.2.1) (2025-10-09)
+
+
+### Bug Fixes
+
+
+* fix: remove unused bitcoin.api.prepareSendTx (#6662)
+
+
+
+## [2.2.0](https://github.com/ExodusMovement/assets/compare/@exodus/bitcoin-plugin@2.1.3...@exodus/bitcoin-plugin@2.2.0) (2025-09-17)
+
+
+### Features
+
+
+* feat: bump bitcoinjs and bip322-js deps (#6481)
+
+
+
+## [2.1.3](https://github.com/ExodusMovement/assets/compare/@exodus/bitcoin-plugin@2.1.2...@exodus/bitcoin-plugin@2.1.3) (2025-09-16)
+
+
+### Bug Fixes
+
+
+* fix: mixed input transactions incorrectly classified as receive (#6472)
+
+
+
+## [2.1.2](https://github.com/ExodusMovement/assets/compare/@exodus/bitcoin-plugin@2.1.1...@exodus/bitcoin-plugin@2.1.2) (2025-09-15)
+
+
+### Bug Fixes
+
+
+* fix: increase UTXOs dust to protect ordinals (#6457)
+
+
+
 ## [2.1.1](https://github.com/ExodusMovement/assets/compare/@exodus/bitcoin-plugin@2.1.0...@exodus/bitcoin-plugin@2.1.1) (2025-08-06)
 
 

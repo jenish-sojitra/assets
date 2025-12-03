@@ -276,8 +276,24 @@ export class BaseMonitor extends EventEmitter {
     })
   }
 
-  async updateTxLog({
+  updateAccountStateBatch({
     assetName = this.asset.name,
+    accountState,
+    newData,
+    walletAccount,
+    batch,
+  }) {
+    return this.aci.updateAccountStateBatch({
+      assetName,
+      walletAccount,
+      accountState,
+      newData,
+      batch,
+    })
+  }
+
+  async updateTxLog({
+    assetName = this.asset.name, // NOTE: the default value only works correctly for the base asset txLog
     logItems,
     walletAccount,
     refresh,
@@ -292,11 +308,31 @@ export class BaseMonitor extends EventEmitter {
     })
   }
 
+  updateTxLogBatch({ assetName, logItems, walletAccount, refresh, notifyCondition, batch }) {
+    return this.aci.updateTxLogAndNotifyBatch({
+      assetName,
+      walletAccount,
+      txs: logItems,
+      refresh,
+      notifyCondition,
+      batch,
+    })
+  }
+
   async removeFromTxLog(items) {
     for (const { tx, assetSource } of items) {
       const { asset: assetName, walletAccount } = assetSource
       await this.aci.removeTxLog({ assetName, walletAccount, txs: [tx] })
     }
+  }
+
+  removeFromTxLogBatch({ items, batch = this.aci.createOperationsBatch() }) {
+    for (const { tx, assetSource } of items) {
+      const { asset: assetName, walletAccount } = assetSource
+      this.aci.removeTxLogBatch({ assetName, walletAccount, txs: [tx], batch })
+    }
+
+    return batch
   }
 
   getUnconfirmed({ txSet, staleTxAge }) {
@@ -314,25 +350,35 @@ export class BaseMonitor extends EventEmitter {
   }
 
   async updateTxLogByAsset({ logItemsByAsset, walletAccount, refresh, notifyCondition }) {
-    if (refresh) {
-      // Batch is only in desktop, should these methods be removed?
-      const batch = this.aci.createOperationsBatch()
-      for (const [assetName, txs] of Object.entries(logItemsByAsset)) {
-        this.aci.updateTxLogAndNotifyBatch({
-          assetName,
-          walletAccount,
-          txs,
-          refresh,
-          batch,
-        })
-      }
+    const batch = this.updateTxLogByAssetBatch({
+      logItemsByAsset,
+      walletAccount,
+      refresh,
+      notifyCondition,
+    })
 
-      await this.aci.executeOperationsBatch(batch)
-    } else {
-      for (const [assetName, logItems] of Object.entries(logItemsByAsset)) {
-        await this.updateTxLog({ assetName, logItems, walletAccount, refresh, notifyCondition })
-      }
+    await this.aci.executeOperationsBatch(batch)
+  }
+
+  updateTxLogByAssetBatch({
+    logItemsByAsset,
+    walletAccount,
+    refresh,
+    notifyCondition,
+    batch = this.aci.createOperationsBatch(),
+  }) {
+    for (const [assetName, txs] of Object.entries(logItemsByAsset)) {
+      this.aci.updateTxLogAndNotifyBatch({
+        assetName,
+        walletAccount,
+        txs,
+        refresh,
+        notifyCondition: refresh ? undefined : notifyCondition,
+        batch,
+      })
     }
+
+    return batch
   }
 
   logDeprecation = (method, alternative) => {

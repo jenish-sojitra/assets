@@ -6,13 +6,13 @@ const color = {
 
 const assetId = {
   type: 'string',
-  pattern: '^[A-Za-z0-9:_\\-]{6,128}$',
+  pattern: '^[A-Za-z0-9:_\\-.]{6,128}$',
 }
 
 const assetName = {
   type: 'string',
   pattern: '^[a-z0-9]{1,10}_[a-z0-9]+_[0-9a-f]{8}(?:[0-9a-f]{8})?$',
-  maxLength: 34,
+  maxLength: 42,
 }
 
 const parentAssetName = {
@@ -49,7 +49,7 @@ const displayName = {
 const ticker = {
   type: 'string',
   pattern: '^[A-Z0-9]{1,10}[a-z0-9]+[0-9A-F]{8}(?:[0-9A-F]{8})?$',
-  maxLength: 32,
+  maxLength: 40,
 }
 
 // regex is like displayName without underscore `_`!

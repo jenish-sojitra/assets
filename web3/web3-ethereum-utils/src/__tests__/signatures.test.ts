@@ -263,6 +263,7 @@ describe('signTypedData', () => {
 
 describe('signTransaction', () => {
   const baseTransaction = {
+    chainId: 0,
     from: '0xb60e8dd61c5d32be8058bb8eb970870f07233155',
     to: '0xd46e8dd67c5d32be8058bb8eb970870f07244567',
     gasLimit: '0x76c0',

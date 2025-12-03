@@ -1,6 +1,6 @@
 {
   "name": "@exodus/asset-schema-validation",
-  "version": "1.0.7",
+  "version": "1.1.1",
   "description": "Schema definition and schema validation for asset data.",
   "type": "module",
   "main": "src/index.js",

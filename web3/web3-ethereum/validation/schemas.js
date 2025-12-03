@@ -223,7 +223,6 @@ const definitions = {
   walletPermissionsParams: {
     type: 'array',
     items: false,
-    minItems: 1,
     prefixItems: [{ $ref: '#/$defs/requestedPermissions' }],
   },
   walletSwitchEthereumChainParams: {

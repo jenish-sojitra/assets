@@ -71,8 +71,8 @@ const sendValidationsFactory = ({ api, assetName, assetClientInterface }) => {
     id: 'SOL_RENT_EXEMPT_AMOUNT',
     type: VALIDATION_TYPES.ERROR,
     shouldValidate: ({ asset, sendAmount }) => sendAmount,
-    isValid: async ({ asset, destinationAddress, sendAmount, baseAssetBalance, feeAmount }) => {
-      if (!destinationAddress || !sendAmount || sendAmount.isZero) {
+    isValid: async ({ asset, destinationAddress, sendAmount, baseAssetBalance, fees }) => {
+      if (!destinationAddress || !sendAmount || sendAmount.isZero || fees?.usedFeePayer === true) {
         return true
       }
 
@@ -87,7 +87,7 @@ const sendValidationsFactory = ({ api, assetName, assetClientInterface }) => {
       } else {
         // sending token
         isEnoughForRent = baseAssetBalance
-          .sub(feeAmount || asset.feeAsset.currency.ZERO)
+          .sub(fees?.fee || asset.feeAsset.currency.ZERO)
           .gte(rentExemptAmount)
       }
 

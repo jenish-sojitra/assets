@@ -3,6 +3,92 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.28.1](https://github.com/ExodusMovement/assets/compare/@exodus/solana-plugin@1.28.0...@exodus/solana-plugin@1.28.1) (2025-11-07)
+
+
+### Bug Fixes
+
+
+* fix: handle empty account info gracefully (#6877)
+
+
+
+## [1.28.0](https://github.com/ExodusMovement/assets/compare/@exodus/solana-plugin@1.27.0...@exodus/solana-plugin@1.28.0) (2025-10-30)
+
+
+### Features
+
+
+* feat: Solana skip rent validation when usedFeePayer and update fee check logic (#6797)
+
+
+
+## [1.27.0](https://github.com/ExodusMovement/assets/compare/@exodus/solana-plugin@1.26.1...@exodus/solana-plugin@1.27.0) (2025-10-27)
+
+
+### Features
+
+
+* feat: SOL agent accounts (#6757)
+
+
+
+## [1.26.1](https://github.com/ExodusMovement/assets/compare/@exodus/solana-plugin@1.26.0...@exodus/solana-plugin@1.26.1) (2025-10-24)
+
+
+### Bug Fixes
+
+
+* fix: address has history method (#6764)
+
+
+
+## [1.26.0](https://github.com/ExodusMovement/assets/compare/@exodus/solana-plugin@1.25.0...@exodus/solana-plugin@1.26.0) (2025-10-15)
+
+
+### Features
+
+
+* feat: solana update fee as zero with usedFeePayer (#6702)
+
+
+
+## [1.25.0](https://github.com/ExodusMovement/assets/compare/@exodus/solana-plugin@1.24.6...@exodus/solana-plugin@1.25.0) (2025-10-14)
+
+
+### Features
+
+
+* feat: integrate Solana fee payer service (#6615)
+
+
+
+## [1.24.7](https://github.com/ExodusMovement/assets/compare/@exodus/solana-plugin@1.24.6...@exodus/solana-plugin@1.24.7) (2025-10-09)
+
+**Note:** Version bump only for package @exodus/solana-plugin
+
+
+
+
+
+## [1.24.6](https://github.com/ExodusMovement/assets/compare/@exodus/solana-plugin@1.24.5...@exodus/solana-plugin@1.24.6) (2025-09-29)
+
+**Note:** Version bump only for package @exodus/solana-plugin
+
+
+
+
+
+## [1.24.5](https://github.com/ExodusMovement/assets/compare/@exodus/solana-plugin@1.24.4...@exodus/solana-plugin@1.24.5) (2025-09-18)
+
+
+### Bug Fixes
+
+
+* fix: SOL coinAmount for staking (regression) (#6476)
+
+
+
 ## [1.24.4](https://github.com/ExodusMovement/assets/compare/@exodus/solana-plugin@1.24.3...@exodus/solana-plugin@1.24.4) (2025-09-16)
 
 

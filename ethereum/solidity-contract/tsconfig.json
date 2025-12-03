@@ -1,15 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "lib": ["es2020"],
-    "module": "es2015",
+    "target": "es2022",
+    "lib": ["es2022"],
+    "module": "ES2022",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "sourceMap": false,
     "strict": false,
     "outDir": "./lib",
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "useDefineForClassFields": true
   },
   "include": ["src/**/*.ts"]
 }

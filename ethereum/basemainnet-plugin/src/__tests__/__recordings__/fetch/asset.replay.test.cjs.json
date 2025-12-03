@@ -1,0 +1,47 @@
+[
+  {
+    "request": { "resource": "https://base-clarity.a.exodus.io/api/v2/basemainnet/gas-price-estimation", "options": {} },
+    "status": 200,
+    "statusText": "OK",
+    "ok": true,
+    "headers": [
+      ["access-control-allow-origin", "*"],
+      ["cf-cache-status", "DYNAMIC"],
+      ["cf-ray", "98f2d0529e2b5146-EZE"],
+      ["connection", "keep-alive"],
+      ["content-encoding", "gzip"],
+      ["content-type", "application/json; charset=utf-8"],
+      ["cross-origin-opener-policy", "same-origin"],
+      ["date", "Wed, 15 Oct 2025 22:39:40 GMT"],
+      ["etag", "W/\"c6-bpk3qeZbcmsxMUhgexJta8o6oWI\""],
+      ["expect-ct", "max-age=86400, enforce"],
+      ["referrer-policy", "same-origin"],
+      ["server", "cloudflare"],
+      [
+        "set-cookie",
+        "route=1760567981.518.32.979443|382bc6212d65cb4f58b95d031680c743; Expires=Fri, 17-Oct-25 22:39:40 GMT; Max-Age=172800; Path=/; HttpOnly"
+      ],
+      [
+        "set-cookie",
+        "_cfuvid=Ur12M7zxEtChYPpi2ny3.dGNXC43B_2pGrUowpLxnfg-1760567980637-0.0.1.1-604800000; path=/; domain=.a.exodus.io; HttpOnly; Secure; SameSite=None"
+      ],
+      ["transfer-encoding", "chunked"],
+      ["vary", "Accept-Encoding"],
+      ["x-content-type-options", "nosniff"],
+      ["x-frame-options", "SAMEORIGIN"],
+      ["x-xss-protection", "1; mode=block"]
+    ],
+    "url": "https://base-clarity.a.exodus.io/api/v2/basemainnet/gas-price-estimation",
+    "redirected": false,
+    "type": "basic",
+    "bodyType": "json",
+    "body": {
+      "blockNumber": 36889316,
+      "gasPrice": "0x4b6a51",
+      "baseGasPrice": "0x44c114",
+      "baseFeePerGas": "0x3c2811",
+      "nextBaseFeePerGas": "0x375028",
+      "rewardPercentiles": { "25": "0xd965d", "50": "0xfda5a", "75": "0x1ac572" }
+    }
+  }
+]

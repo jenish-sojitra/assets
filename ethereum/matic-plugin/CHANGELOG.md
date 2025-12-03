@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.2](https://github.com/ExodusMovement/assets/compare/@exodus/matic-plugin@2.7.1...@exodus/matic-plugin@2.7.2) (2025-10-23)
+
+
+### Bug Fixes
+
+
+* fix: improve transaction address resolution for gas estimation and encapsulate transaction property evaluation (#6636)
+
+
+
 ## [2.7.1](https://github.com/ExodusMovement/assets/compare/@exodus/matic-plugin@2.7.0...@exodus/matic-plugin@2.7.1) (2025-08-12)
 
 

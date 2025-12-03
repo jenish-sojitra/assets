@@ -1,5 +1,5 @@
 import { toBuffer } from '@exodus/ethereumjs/util'
-import test from '@exodus/test/tape' // eslint-disable-line @exodus/import/no-unresolved -- eslint doesn't understand "exports" in package.json
+import test from '@exodus/test/tape'
 
 import baseFillOrderABI from '../lib/fixtures/base-fill-order.js'
 import erc20Abi from '../lib/fixtures/erc20-abi.js'
@@ -8,8 +8,8 @@ import { LiFiAbi } from './fixtures/LiFi.js'
 
 export function isCorrectErc20Contract(t, contract) {
   const expectedFunctions = [
-    'address',
     'abi',
+    'address',
     'methodIds',
     'eventIds',
     'Transfer',

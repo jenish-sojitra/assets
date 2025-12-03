@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://github.com/ExodusMovement/assets/compare/@exodus/solidity-contract@1.2.1...@exodus/solidity-contract@1.3.0) (2025-09-17)
+
+
+### Features
+
+
+* feat: replace deprecated apis with exodus/crypto/hash (#6483)
+
+
+
 ## [1.2.1](https://github.com/ExodusMovement/assets/compare/@exodus/solidity-contract@1.2.0...@exodus/solidity-contract@1.2.1) (2024-12-10)
 
 

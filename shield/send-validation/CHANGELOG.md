@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.0](https://github.com/ExodusMovement/assets/compare/@exodus/send-validation@5.3.1...@exodus/send-validation@5.4.0) (2025-10-13)
+
+
+### Features
+
+
+* feat: remove unused sendReserveInfo from common validators (#6682)
+
+
+
 ## [5.3.1](https://github.com/ExodusMovement/assets/compare/@exodus/send-validation@5.3.0...@exodus/send-validation@5.3.1) (2025-09-17)
 
 

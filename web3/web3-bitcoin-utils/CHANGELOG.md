@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.0](https://github.com/ExodusMovement/assets/compare/@exodus/web3-bitcoin-utils@2.3.3...@exodus/web3-bitcoin-utils@2.4.0) (2025-09-17)
+
+
+### Features
+
+
+* feat: bump bitcoinjs and bip322-js deps (#6481)
+
+
+
 ## [2.3.3](https://github.com/ExodusMovement/assets/compare/@exodus/web3-bitcoin-utils@2.3.2...@exodus/web3-bitcoin-utils@2.3.3) (2025-01-27)
 
 **Note:** Version bump only for package @exodus/web3-bitcoin-utils

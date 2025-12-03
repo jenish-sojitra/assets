@@ -42,14 +42,9 @@ const accountPermissionsValidator = {
 const notEnoughBalanceValidator = {
   id: 'NOT_ENOUGH_BALANCE',
   type: VALIDATION_TYPES.ERROR,
-  shouldValidate: ({ sendReserveInfo, sendAmount }) =>
-    Boolean(sendReserveInfo) && Boolean(sendAmount),
-  isValid: async ({ sendReserveInfo, sendAmount, availableBalance }) => {
-    if (!sendReserveInfo.canSend) {
-      return sendAmount.lte(availableBalance) && sendReserveInfo.error !== 'NOT_ENOUGH_FEE'
-    }
-
-    return sendAmount.lte(sendReserveInfo.amount)
+  shouldValidate: ({ sendAmount }) => Boolean(sendAmount),
+  isValid: async ({ sendAmount, availableBalance }) => {
+    return sendAmount.lte(availableBalance)
   },
   priority: PRIORITY_LEVELS.MIDDLE,
   getMessage: ({ asset }) =>
@@ -93,32 +88,6 @@ const isSelfSendValidator = {
   field: FIELDS.ADDRESS,
 }
 
-const sendReserveValidator = {
-  id: 'SEND_RESERVE_WARN',
-  type: VALIDATION_TYPES.WARN,
-  priority: PRIORITY_LEVELS.BASE,
-  field: FIELDS.AMOUNT,
-  validateAndGetMessage: async ({ sendReserveInfo, destinationAddress, asset }) => {
-    if (!sendReserveInfo?.canSend) {
-      return
-    }
-
-    if (!(await asset.baseAsset.address.validate(destinationAddress))) {
-      return
-    }
-
-    return t(
-      `The ${
-        asset.displayName
-      } network has built-in rules on minimum balances, to send your remaining balance the ${
-        asset.displayName
-      } network will charge a ${asset.accountDeleteFee.toDefaultString()} ${
-        asset.displayTicker
-      } fee.`
-    )
-  },
-}
-
 const taxWarningValidator = {
   id: 'TAX_WARNING',
   type: VALIDATION_TYPES.WARN,
@@ -153,7 +122,6 @@ export default [
   accountPermissionsValidator,
   canSelfSendValidator,
   isSelfSendValidator,
-  sendReserveValidator,
   taxWarningValidator,
   BASE_ASSET_INSUFFICIENT_FUNDS,
   FUEL_THRESHOLD,

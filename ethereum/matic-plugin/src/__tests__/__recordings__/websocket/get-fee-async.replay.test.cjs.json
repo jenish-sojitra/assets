@@ -2,60 +2,54 @@
   {
     "url": "wss://polygon-clarity.a.exodus.io/socket.io/?EIO=3&transport=websocket",
     "log": [
-      { "type": "get binaryType", "at": 22, "value": "nodebuffer" },
-      { "type": "set binaryType", "at": 22, "value": "arraybuffer" },
-      { "type": "open", "at": 721 },
+      { "type": "get binaryType", "at": 24, "value": "nodebuffer" },
+      { "type": "set binaryType", "at": 24, "value": "arraybuffer" },
+      { "type": "open", "at": 1302 },
       {
         "type": "message",
-        "at": 721,
-        "data": "0{\"sid\":\"Ix2AOr-ztZJ62dqlAAPM\",\"upgrades\":[],\"pingInterval\":25000,\"pingTimeout\":20000}"
+        "at": 1303,
+        "data": "0{\"sid\":\"Vut-FzKGP6Nr9zB4AAm0\",\"upgrades\":[],\"pingInterval\":25000,\"pingTimeout\":20000}"
       },
-      { "type": "send()", "at": 722, "data": "40/v1/matic/rpc," },
-      { "type": "message", "at": 723, "data": "40" },
-      { "type": "message", "at": 885, "data": "40/v1/matic/rpc," },
+      { "type": "send()", "at": 1306, "data": "40/v1/matic/rpc," },
+      { "type": "message", "at": 1307, "data": "40" },
+      { "type": "message", "at": 1454, "data": "40/v1/matic/rpc," },
       {
         "type": "send()",
-        "at": 885,
-        "data": "42/v1/matic/rpc,0[\"request\",{\"jsonrpc\":\"2.0\",\"id\":0,\"method\":\"eth_getCode\",\"params\":[\"0x464F62159e067a8C231b5c3F9A7144E191750051\",\"latest\"]}]"
+        "at": 1455,
+        "data": "42/v1/matic/rpc,0[\"request\",{\"jsonrpc\":\"2.0\",\"id\":0,\"method\":\"eth_getCode\",\"params\":[\"0xbb42bf5aebbbeaef9335d8b497fb2cff2a010eed\",\"latest\"]}]"
       },
-      { "type": "message", "at": 1086, "data": "43/v1/matic/rpc,0[{\"jsonrpc\":\"2.0\",\"id\":0,\"result\":\"0x\"}]" },
-      {
-        "type": "send()",
-        "at": 1089,
-        "data": "42/v1/matic/rpc,1[\"request\",{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"eth_getCode\",\"params\":[\"0xbb42bf5aebbbeaef9335d8b497fb2cff2a010eed\",\"latest\"]}]"
-      },
-      { "type": "message", "at": 1308, "data": "43/v1/matic/rpc,1[{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0x\"}]" },
-      { "type": "send()", "at": 1309, "data": "41/v1/matic/rpc," },
-      { "type": "close()", "at": 1341 },
-      { "type": "close", "at": 1527, "code": 1005, "reason": "", "wasClean": true }
+      { "type": "message", "at": 1626, "data": "43/v1/matic/rpc,0[{\"jsonrpc\":\"2.0\",\"id\":0,\"result\":\"0x\"}]" },
+      { "type": "send()", "at": 1639, "data": "41/v1/matic/rpc," },
+      { "type": "close()", "at": 1695 },
+      { "type": "close", "at": 1822, "code": 1005, "reason": "", "wasClean": true }
     ]
   }, {
     "url": "wss://polygon-clarity.a.exodus.io/socket.io/?EIO=3&transport=websocket",
     "log": [
-      { "type": "get binaryType", "at": 0, "value": "nodebuffer" },
-      { "type": "set binaryType", "at": 0, "value": "arraybuffer" },
-      { "type": "open", "at": 674 },
+      { "type": "get binaryType", "at": 1, "value": "nodebuffer" },
+      { "type": "set binaryType", "at": 1, "value": "arraybuffer" },
+      { "type": "open", "at": 529 },
       {
         "type": "message",
-        "at": 675,
-        "data": "0{\"sid\":\"1UGUjHljJt1rrV8oAAPP\",\"upgrades\":[],\"pingInterval\":25000,\"pingTimeout\":20000}"
+        "at": 530,
+        "data": "0{\"sid\":\"jHSBWHjTGEB-6B9cAAlL\",\"upgrades\":[],\"pingInterval\":25000,\"pingTimeout\":20000}"
       },
-      { "type": "send()", "at": 675, "data": "40/v1/matic/rpc," },
-      { "type": "message", "at": 675, "data": "40" },
-      { "type": "message", "at": 842, "data": "40/v1/matic/rpc," },
+      { "type": "send()", "at": 531, "data": "40/v1/matic/rpc," },
+      { "type": "message", "at": 531, "data": "40" },
+      { "type": "message", "at": 674, "data": "40/v1/matic/rpc," },
       {
         "type": "send()",
-        "at": 843,
+        "at": 675,
         "data": "42/v1/matic/rpc,0[\"request\",{\"jsonrpc\":\"2.0\",\"id\":0,\"method\":\"eth_getCode\",\"params\":[\"invalid\",\"latest\"]}]"
       }, {
         "type": "message",
-        "at": 1008,
+        "at": 806,
         "data": "42/v1/matic/rpc,[\"requestError\",{\"message\":\"Internal Server Error\"}]"
       },
-      { "type": "message", "at": 1008, "data": "43/v1/matic/rpc,0[{\"error\":{\"message\":\"Invalid address\"}}]" },
-      { "type": "send()", "at": 1009, "data": "41/v1/matic/rpc," },
-      { "type": "close()", "at": 1011 },
-      { "type": "close", "at": 1184, "code": 1005, "reason": "", "wasClean": true }
+      { "type": "message", "at": 807, "data": "43/v1/matic/rpc,0[{\"error\":{\"message\":\"Invalid address\"}}]" },
+      { "type": "send()", "at": 810, "data": "41/v1/matic/rpc," },
+      { "type": "close()", "at": 813 },
+      { "type": "close", "at": 957, "code": 1005, "reason": "", "wasClean": true }
     ]
   }
 ]

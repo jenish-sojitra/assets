@@ -11,7 +11,7 @@ export const _defaults = {
   rbfBumpFeeBlocks: 3,
   rbfBumpFeeThreshold: 0.8,
   rbfEnabled: true,
-  utxoDustValue: 0,
+  utxoDustValue: 599, // Greater than the specified value is considered spendable to protect Ordinals
 }
 export const bitcoinFeeDataFactory = ({ currency, overrideDefaults }) =>
   new FeeData({ config: { ..._defaults, ...overrideDefaults }, mainKey: 'feePerKB', currency })

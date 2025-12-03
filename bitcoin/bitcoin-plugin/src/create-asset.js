@@ -15,7 +15,6 @@ import {
   getCreateBatchTransaction,
   getFeeEstimatorFactory,
   GetFeeResolver,
-  getPrepareSendTransaction,
   InsightAPIClient,
   isValidInscription,
   moveFundsFactory,
@@ -48,6 +47,8 @@ export const createBitcoinAssetFactory =
       allowUnconfirmedRbfEnabledUtxos = false,
       ordinalChainIndex = DEFAULT_ORDINAL_CHAIN_INDEX,
       ordinalsEnabled = false,
+      extraChainIndex = 2,
+      extraChainIndexEnabled = true, // default is true for ordinals
       gapLimit = 10,
       refreshGapLimit = 25,
       feeDataCustomValues,
@@ -62,6 +63,11 @@ export const createBitcoinAssetFactory =
     assert(asset, 'asset is required')
     assert(typeof ordinalChainIndex === 'number', 'ordinalChainIndex must be a number')
     assert(apiUrl, 'apiUrl is required')
+    assert(typeof extraChainIndexEnabled === 'boolean', 'extraChainIndexEnabled must be boolean')
+    assert(
+      typeof extraChainIndex === 'number' && extraChainIndex > 1,
+      'extraChainIndex must be a number greater than 1'
+    )
 
     const multipleAddresses = true // Indicates multiple addresses are supported. This is not configurable as it also affects address derivation.
 
@@ -95,6 +101,7 @@ export const createBitcoinAssetFactory =
       multipleAddresses,
       nfts: ordinalsEnabled,
       isTestnet,
+      selfSend: true,
       signWithSigner: true,
       signMessageWithSigner: true,
       supportsCustomFees: true,
@@ -120,15 +127,6 @@ export const createBitcoinAssetFactory =
 
     const getBalances = getBalancesFactory({ feeData, allowUnconfirmedRbfEnabledUtxos })
 
-    const baseGetPrepareSendTx = getPrepareSendTransaction({
-      getFeeEstimator,
-      allowUnconfirmedRbfEnabledUtxos,
-      ordinalsEnabled,
-      utxosDescendingOrder,
-      assetClientInterface,
-      changeAddressType,
-    })
-
     const sendTx = createAndBroadcastTXFactory({
       getFeeEstimator,
       allowUnconfirmedRbfEnabledUtxos,
@@ -147,7 +145,7 @@ export const createBitcoinAssetFactory =
     const getKeyIdentifier = createGetKeyIdentifier({
       bip44,
       allowedPurposes,
-      allowedChainIndices: [0, 1, 2],
+      ...(extraChainIndexEnabled && { allowedChainIndices: [0, 1, extraChainIndex] }),
       assetName: asset.name,
     })
 
@@ -193,6 +191,8 @@ export const createBitcoinAssetFactory =
         insightClient,
         ordinalsEnabled,
         ordinalChainIndex,
+        extraChainIndex,
+        extraChainIndexEnabled,
         apiUrl,
         gapLimit,
         refreshGapLimit,
@@ -298,7 +298,6 @@ export const createBitcoinAssetFactory =
       useMultipleAddresses: multipleAddresses, // @deprecated use api.features.multipleAddresses instead
       insightClient,
       canBumpTx,
-      prepareSendTx: baseGetPrepareSendTx,
       createBatchTx,
       encodeMultisigContract,
       psbtToUnsignedTx,

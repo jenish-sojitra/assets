@@ -1,7 +1,7 @@
 {
   "name": "@exodus/web3-bitcoin-utils",
   "description": "Web3 Bitcoin utils.",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "type": "module",
   "sideEffects": false,
   "module": "lib/index.js",
@@ -41,7 +41,7 @@
     "bip174": "^2.1.1"
   },
   "dependencies": {
-    "@exodus/bitcoinjs": "^1.3.0",
+    "@exodus/bitcoinjs": "^2.0.0",
     "@exodus/web3-utils": "^1.50.1",
     "bn.js": "^5.2.0"
   },

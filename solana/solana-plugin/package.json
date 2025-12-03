@@ -1,6 +1,6 @@
 {
   "name": "@exodus/solana-plugin",
-  "version": "1.24.4",
+  "version": "1.28.1",
   "description": "Solana plugin for Exodus SDK powered wallets.",
   "type": "module",
   "main": "src/index.js",
@@ -13,7 +13,8 @@
   "license": "MIT",
   "homepage": "https://github.com/ExodusMovement/assets/tree/master/solana/solana-plugin",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": false
   },
   "scripts": {
     "test": "run -T exodus-test --jest",
@@ -26,8 +27,8 @@
     "@exodus/bip44-constants": "^195.0.0",
     "@exodus/i18n-dummy": "^1.0.0",
     "@exodus/send-validation-model": "^1.0.0",
-    "@exodus/solana-api": "^3.20.3",
-    "@exodus/solana-lib": "^3.11.2",
+    "@exodus/solana-api": "^3.25.0",
+    "@exodus/solana-lib": "^3.14.0",
     "@exodus/solana-meta": "^2.3.1",
     "@exodus/web3-solana-utils": "^2.9.0",
     "minimalistic-assert": "^1.0.1",

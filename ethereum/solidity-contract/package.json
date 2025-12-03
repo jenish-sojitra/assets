@@ -1,6 +1,6 @@
 {
   "name": "@exodus/solidity-contract",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Object orient smart contract ABI data building/parsing.",
   "main": "lib/index.js",
   "type": "module",
@@ -14,14 +14,15 @@
     "lib"
   ],
   "author": "Exodus Movement, Inc.",
-  "license": "MPL2",
+  "license": "MPL-2.0",
   "dependencies": {
-    "@exodus/crypto": "^1.0.0-rc.14",
-    "@exodus/ethereumjs": "^1.2.0",
+    "@exodus/crypto": "^1.0.0-rc.26",
+    "@exodus/ethereumjs": "^1.8.0",
     "@exodus/ethersproject-abi": "^5.4.2-exodus.2",
     "lodash": "^4.17.10"
   },
   "devDependencies": {
+    "@exodus/test": "^1.0.0-rc.72",
     "@types/node": "^22.8.4",
     "eslint-import-resolver-typescript": "^3.6.3",
     "tap-spec": "5.0.0",

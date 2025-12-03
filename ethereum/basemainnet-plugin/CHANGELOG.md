@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.1](https://github.com/ExodusMovement/assets/compare/@exodus/basemainnet-plugin@2.7.0...@exodus/basemainnet-plugin@2.7.1) (2025-11-05)
+
+
+### Bug Fixes
+
+
+* fix: enable http request retries on clarity (#6864)
+
+
+
+## [2.7.0](https://github.com/ExodusMovement/assets/compare/@exodus/basemainnet-plugin@2.6.0...@exodus/basemainnet-plugin@2.7.0) (2025-09-26)
+
+
+### Features
+
+
+* feat(ethereum): use methodId in new staking txs shape (#6335)
+
+* feat: tx send split, tx-create (#5854)
+
+
+
 ## [2.6.0](https://github.com/ExodusMovement/assets/compare/@exodus/basemainnet-plugin@2.5.0...@exodus/basemainnet-plugin@2.6.0) (2025-07-10)
 
 

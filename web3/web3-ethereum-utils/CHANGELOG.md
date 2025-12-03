@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1](https://github.com/ExodusMovement/assets/compare/@exodus/web3-ethereum-utils@4.5.0...@exodus/web3-ethereum-utils@4.5.1) (2025-10-02)
+
+**Note:** Version bump only for package @exodus/web3-ethereum-utils
+
+
+
+
+
 ## [4.5.0](https://github.com/ExodusMovement/assets/compare/@exodus/web3-ethereum-utils@4.4.0...@exodus/web3-ethereum-utils@4.5.0) (2025-07-14)
 
 

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/ExodusMovement/assets/compare/@exodus/asset-legacy-token-name-mapping@1.5.0...@exodus/asset-legacy-token-name-mapping@1.5.1) (2025-09-26)
+
+
+### Bug Fixes
+
+
+* fix: legacy mappings and improve testing (#6536)
+
+
+
+## [1.5.0](https://github.com/ExodusMovement/assets/compare/@exodus/asset-legacy-token-name-mapping@1.4.0...@exodus/asset-legacy-token-name-mapping@1.5.0) (2025-09-23)
+
+
+### Features
+
+
+* feat(shield): check if all tokens are curated in asset-legacy-token-name-mapping (#6479)
+
+
+
 ## [1.4.0](https://github.com/ExodusMovement/assets/compare/@exodus/asset-legacy-token-name-mapping@1.3.1...@exodus/asset-legacy-token-name-mapping@1.4.0) (2025-04-08)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@exodus/asset-legacy-token-name-mapping",
-  "version": "1.4.0",
+  "version": "1.5.1",
   "description": "Old legacy name mapping for custom token migration.",
   "type": "module",
   "main": "src/index.js",
@@ -13,6 +13,7 @@
     "CHANGELOG.md"
   ],
   "scripts": {
+    "test": "run -T exodus-test --jest",
     "lint": "run -T eslintc . --ignore-path ../../.gitignore",
     "lint:fix": "yarn lint --fix"
   },
@@ -25,5 +26,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@exodus/fetch": "^1.3.0-beta.4"
   }
 }

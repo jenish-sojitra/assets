@@ -1,13 +1,10 @@
-import { Common, Hardfork } from '@exodus/ethereumjs/common'
+import { getEthereumJsTxByTransactionProps } from '@exodus/ethereum-lib'
 import {
   SignTypedDataVersion,
   personalSign,
   signTypedData as ethSigUtilSignTypedData,
 } from '@exodus/ethereumjs/eth-sig-util'
-import {
-  FeeMarketEIP1559Transaction,
-  Transaction as LegacyTransaction,
-} from '@exodus/ethereumjs/tx'
+import assert from 'minimalistic-assert'
 
 import type { EthTransactionParams } from './types.js'
 import type {
@@ -15,8 +12,6 @@ import type {
   TypedDataV1,
   TypedMessage,
 } from '@exodus/ethereumjs/eth-sig-util'
-
-const custom = Common.default?.custom || Common.custom
 
 export function signMessage(message: string, privateKey: Buffer): string {
   return personalSign({ privateKey, data: message })
@@ -34,16 +29,18 @@ export function signTransaction(
   transactionParams: EthTransactionParams,
   privateKey: Buffer,
 ): Buffer {
-  const { chainId, ...transactionData } = transactionParams
+  const { chainId, ...transactionProps } = transactionParams
 
-  const isEIP1559Enabled = !!transactionParams.maxFeePerGas
-  const transaction = isEIP1559Enabled
-    ? FeeMarketEIP1559Transaction.fromTxData(transactionData, {
-        common: custom({ chainId }, { hardfork: Hardfork.London }),
-      })
-    : LegacyTransaction.fromTxData(transactionData, {
-        common: custom({ chainId }),
-      })
+  assert(
+    typeof chainId === 'number',
+    'signTransaction must be explicitly passed a chainId',
+  )
+
+  const transaction = getEthereumJsTxByTransactionProps({
+    chainId,
+    eip1559Enabled: Boolean(transactionProps.maxFeePerGas),
+    transactionProps,
+  })
 
   const signedTransaction = transaction.sign(privateKey)
   return signedTransaction.serialize()

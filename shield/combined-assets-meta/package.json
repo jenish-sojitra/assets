@@ -1,0 +1,46 @@
+{
+  "name": "@exodus/combined-assets-meta",
+  "version": "3.7.0",
+  "description": "Combined assets constants, icons, colors and other metadata",
+  "type": "module",
+  "main": "src/index.js",
+  "files": [
+    "assets",
+    "src",
+    "!**/__tests__/**",
+    "CHANGELOG.md"
+  ],
+  "author": "Exodus Movement, Inc.",
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/ExodusMovement/assets/tree/master/shield/combined-assets-meta",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "scripts": {
+    "test": "run -T exodus-test --jest",
+    "lint": "run -T eslintc . --ignore-path ../../.gitignore",
+    "lint:fix": "yarn lint --fix"
+  },
+  "dependencies": {
+    "@exodus/assets": "^11.5.0",
+    "@exodus/avalanchec-meta": "^2.0.5",
+    "@exodus/bsc-meta": "^2.3.0",
+    "@exodus/cardano-meta": "^2.0.1",
+    "@exodus/ethereum-meta": "^2.9.0",
+    "@exodus/fantommainnet-meta": "^2.0.4",
+    "@exodus/litecoin-meta": "^2.0.2",
+    "@exodus/matic-meta": "^2.2.6",
+    "@exodus/solana-meta": "^2.6.0",
+    "@exodus/tronmainnet-meta": "^3.1.2"
+  },
+  "devDependencies": {
+    "@exodus/assets-meta-testing": "workspace:^"
+  },
+  "bugs": {
+    "url": "https://github.com/ExodusMovement/assets/issues?q=is%3Aissue+is%3Aopen+label%3Acombined-assets-meta"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ExodusMovement/assets.git"
+  }
+}

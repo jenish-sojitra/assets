@@ -1,12 +1,16 @@
 import { connectAssetsList } from '@exodus/assets'
 import bip44Constants from '@exodus/bip44-constants/by-ticker.js'
 import {
+  Api,
+  ClarityApi,
   createAccountState,
   createAndBroadcastTXFactory,
+  createInitAgentWalletFactory,
+  createTxFactory,
+  feePayerClientFactory,
   getBalancesFactory,
   getFeeAsyncFactory,
   isSolanaRewardsActivityTx,
-  SolanaMonitor,
 } from '@exodus/solana-api'
 import {
   createFeeData,
@@ -23,6 +27,7 @@ import {
 } from '@exodus/solana-lib'
 import ms from 'ms'
 
+import { createHistoryMonitorFactory } from './create-asset-utils.js'
 import { createGetBalanceForAddress } from './get-balance-for-address.js'
 import sendValidationsFactory from './send-validations.js'
 import { createWeb3API } from './web3/index.js'
@@ -32,10 +37,11 @@ const DEFAULT_LOW_BALANCE = 0.01
 const DEFAULT_MIN_STAKING_AMOUNT = 0.01
 
 export const createSolanaAssetFactory =
-  ({ assetList, serverApi, isTestnet = false }) =>
+  ({ assetList, isTestnet = false }) =>
   ({
     assetClientInterface,
     config: {
+      monitorType = 'rpc', // 'rpc' | 'clarity'
       stakingFeatureAvailable = true,
       includeUnparsed = false,
       allowSendingAll = true,
@@ -48,11 +54,13 @@ export const createSolanaAssetFactory =
       ticksBetweenStakeFetches,
       txsLimit,
       signWithSigner = true,
-      feePayerApiUrl,
+      feePayerApiUrl, // @deprecated use feePayer instead
+      feePayer = Object.create(null),
     } = {},
     overrideCallback = ({ asset }) => asset,
   } = {}) => {
     const assets = connectAssetsList(assetList)
+    const serverApi = monitorType === 'clarity' ? new ClarityApi({ assets }) : new Api({ assets })
 
     const { name: baseAssetName } = assetList.find((asset) => asset.baseAssetName === asset.name)
     const base = assets[baseAssetName]
@@ -83,10 +91,32 @@ export const createSolanaAssetFactory =
 
     const feeData = createFeeData({ asset: base })
 
+    let feePayerClient = null
+    feePayerApiUrl = feePayer.feePayerApiUrl ?? feePayerApiUrl
+    if (feePayerApiUrl) {
+      feePayerClient = feePayerClientFactory({
+        assetName: baseAssetName,
+        feePayerApiUrl,
+        requireAuthentication: true,
+        ...feePayer,
+      })
+    }
+
+    const createTx = createTxFactory({
+      assetClientInterface,
+      api: serverApi,
+      feePayerClient,
+    })
+
     const sendTx = createAndBroadcastTXFactory({
       api: serverApi,
       assetClientInterface,
-      feePayerApiUrl,
+    })
+
+    const initAgentWallet = createInitAgentWalletFactory({
+      api: serverApi,
+      assetClientInterface,
+      sendTx,
     })
 
     const createToken = ({ mintAddress, name, ...tokenDef }) => ({
@@ -150,7 +180,7 @@ export const createSolanaAssetFactory =
       return { fee, priorityFee }
     }
 
-    const getFeeAsync = getFeeAsyncFactory({ api: serverApi })
+    const getFeeAsync = getFeeAsyncFactory({ createTx })
 
     const sendValidations = sendValidationsFactory({
       api: serverApi,
@@ -158,25 +188,27 @@ export const createSolanaAssetFactory =
       assetClientInterface,
     })
 
+    const createHistoryMonitor = createHistoryMonitorFactory({
+      monitorType,
+      assetClientInterface,
+      interval: monitorInterval,
+      shouldUpdateBalanceBeforeHistory,
+      ticksBetweenHistoryFetches,
+      ticksBetweenStakeFetches,
+      includeUnparsed,
+      api: serverApi,
+      txsLimit,
+    })
+
     const api = {
       getActivityTxs,
-      addressHasHistory: (...args) => serverApi.getAccountInfo(...args).then((acc) => !!acc),
+      addressHasHistory: (...args) => serverApi.addressHasHistory(...args),
       broadcastTx: (...args) => serverApi.broadcastTransaction(...args),
       createAccountState: () => SolanaAccountState,
-      createHistoryMonitor: (args) =>
-        new SolanaMonitor({
-          assetClientInterface,
-          interval: monitorInterval,
-          shouldUpdateBalanceBeforeHistory,
-          ticksBetweenHistoryFetches,
-          ticksBetweenStakeFetches,
-          includeUnparsed,
-          api: serverApi,
-          txsLimit,
-          ...args,
-        }),
+      createHistoryMonitor,
       createToken: (tokenDef) =>
         tokenDef.isBuiltIn ? createToken(tokenDef) : createCustomToken(tokenDef),
+      createTx,
       defaultAddressPath,
       features,
       getBalances,
@@ -220,6 +252,7 @@ export const createSolanaAssetFactory =
       api,
       bip44,
       accountReserve,
+      initAgentWallet,
       lowBalance,
       MIN_STAKING_AMOUNT,
       serverApi,

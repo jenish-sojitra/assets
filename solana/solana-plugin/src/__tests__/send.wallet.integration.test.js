@@ -103,11 +103,10 @@ describe(`solana send transfer integration test`, () => {
 
         const expectedUnsignedTx = {
           txData: {
-            amount: 24_278_083,
+            amount: '24278083',
             computeUnits: 450,
             expectedTakerAmount: null,
             fee: null,
-            fixedFee: null,
             from: '8APBjTndtCF4kfKHaJG9boR2dREGNCK4yFRVfqUfzS4X',
             priorityFee: 1_000_000,
             recentBlockhash: expect.any(String),
@@ -118,8 +117,8 @@ describe(`solana send transfer integration test`, () => {
             assetName: 'solana',
             fee: 5450,
             stakingParams: {},
-            useFeePayer: false,
             usedFeePayer: false,
+            useFeePayer: true,
           },
         }
         expect(fees.unsignedTx).toEqual(expectedUnsignedTx)
@@ -173,6 +172,7 @@ describe(`solana send transfer integration test`, () => {
 
         const fees = await feesModule.getFees({
           assetName: asset.name,
+          walletAccount,
           toAddress: fromAddress,
           fromAddress,
           amount,
@@ -180,11 +180,10 @@ describe(`solana send transfer integration test`, () => {
 
         const expectedUnsignedTx = {
           txData: {
-            amount: 100_000,
+            amount: '100000',
             computeUnits: 450,
             expectedTakerAmount: null,
             fee: null,
-            fixedFee: null,
             from: '8APBjTndtCF4kfKHaJG9boR2dREGNCK4yFRVfqUfzS4X',
             priorityFee: 1_000_000,
             recentBlockhash: expect.any(String),
@@ -200,8 +199,8 @@ describe(`solana send transfer integration test`, () => {
               seed: undefined,
               stakeAddresses: undefined,
             },
-            useFeePayer: false,
             usedFeePayer: false,
+            useFeePayer: true,
           },
         }
 
@@ -240,6 +239,7 @@ describe(`solana send transfer integration test`, () => {
 
         const fees = await feesModule.getFees({
           assetName: token.name,
+          walletAccount,
           toAddress: fromAddress,
           fromAddress,
           amount,
@@ -247,12 +247,11 @@ describe(`solana send transfer integration test`, () => {
 
         const expectedUnsignedTx = {
           txData: {
-            amount: 1000,
+            amount: '1000',
             computeUnits: 4674,
             expectedTakerAmount: null,
             destinationAddressType: 'solana',
             fee: null,
-            fixedFee: null,
             from: '8APBjTndtCF4kfKHaJG9boR2dREGNCK4yFRVfqUfzS4X',
             fromTokenAddresses: [
               {
@@ -260,11 +259,11 @@ describe(`solana send transfer integration test`, () => {
                 decimals: 8,
                 feeBasisPoints: 0,
                 maximumFee: 0,
+                ticker: 'ATLASSOL',
+                tokenName: 'staratlas_solana',
                 mintAddress: 'ATLASXmbPQxBUYbxPsV97usA3fPQYEqzQBUHgiFCUsXx',
                 owner: '8APBjTndtCF4kfKHaJG9boR2dREGNCK4yFRVfqUfzS4X',
-                ticker: 'ATLASSOL',
                 tokenAccountAddress: 'FMCCRZWaM9HfS4naf73zTFK4fCdCn32HH5nmg4rozHBt',
-                tokenName: 'staratlas_solana',
                 tokenProgram: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
               },
             ],
@@ -280,8 +279,8 @@ describe(`solana send transfer integration test`, () => {
             assetName: 'staratlas_solana',
             fee: 9674,
             stakingParams: {},
-            useFeePayer: false,
             usedFeePayer: false,
+            useFeePayer: true,
           },
         }
 
@@ -331,12 +330,11 @@ describe(`solana send transfer integration test`, () => {
 
         const expectedUnsignedTx = {
           txData: {
-            amount: 1,
+            amount: '1',
             computeUnits: 9851,
             destinationAddressType: 'solana',
             expectedTakerAmount: null,
             fee: null,
-            fixedFee: null,
             from: '8APBjTndtCF4kfKHaJG9boR2dREGNCK4yFRVfqUfzS4X',
             fromTokenAddresses: [
               {
@@ -344,11 +342,11 @@ describe(`solana send transfer integration test`, () => {
                 decimals: 0,
                 feeBasisPoints: 0,
                 maximumFee: 0,
+                ticker: 'UNKNOWN',
+                tokenName: 'unknown',
                 mintAddress: '7nh6EvZUtVP4oPc9shyjLMmprfg5huKuvTUm8Xfejs8E',
                 owner: '8APBjTndtCF4kfKHaJG9boR2dREGNCK4yFRVfqUfzS4X',
-                ticker: 'UNKNOWN',
                 tokenAccountAddress: '9qUjdmrnFoHd6DAH3dNiqm8ayBeSrZEUczQ23KCb3muL',
-                tokenName: 'unknown',
                 tokenProgram: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
               },
             ],
@@ -372,7 +370,7 @@ describe(`solana send transfer integration test`, () => {
               seed: undefined,
               stakeAddresses: undefined,
             },
-            useFeePayer: false,
+            useFeePayer: true,
             usedFeePayer: false,
           },
         }
@@ -441,11 +439,10 @@ describe(`solana send transfer integration test`, () => {
 
         const expectedUnsignedTx = {
           txData: {
-            amount: 72_965_852,
+            amount: '72965852',
             computeUnits: 450,
             expectedTakerAmount: null,
             fee: null,
-            fixedFee: null,
             from: 'FegJauRKyricstvwpXuNkrG4GTzbJt5n6qiUdnhmH7rR',
             priorityFee: 1_000_000,
             recentBlockhash: expect.any(String),
@@ -456,7 +453,7 @@ describe(`solana send transfer integration test`, () => {
             assetName: 'solana',
             fee: 5450,
             stakingParams: {},
-            useFeePayer: false,
+            useFeePayer: true,
             usedFeePayer: false,
           },
         }
@@ -478,6 +475,62 @@ describe(`solana send transfer integration test`, () => {
         expect(unsignedTx).toEqual(expectedUnsignedTx)
 
         assertTxResult({ result, walletAccount, asset, assetClientInterface })
+      },
+
+      'Per-tx fee payer: enabled globally and requested per-tx': async (deps) => {
+        const { asset, assetClientInterface, fees: feesModule } = deps
+        const walletAccount = 'exodus_0'
+
+        const fromAddress = await assetClientInterface.getReceiveAddress({
+          walletAccount,
+          assetName: asset.name,
+        })
+
+        const feeData = asset.api.getFeeData()
+        feeData.enableFeePayer = true
+
+        const amount = asset.currency.parse('0.0001 SOL')
+
+        const fees = await feesModule.getFees({
+          assetName: asset.name,
+          walletAccount,
+          toAddress: fromAddress,
+          fromAddress,
+          amount,
+          feeData,
+          useFeePayer: true,
+        })
+
+        expect(fees.unsignedTx.txMeta.useFeePayer).toBe(true)
+        expect(fees.unsignedTx.txMeta.usedFeePayer).toBe(false)
+      },
+
+      'Per-tx fee payer: disabled globally, requested per-tx (should skip)': async (deps) => {
+        const { asset, assetClientInterface, fees: feesModule } = deps
+        const walletAccount = 'exodus_0'
+
+        const fromAddress = await assetClientInterface.getReceiveAddress({
+          walletAccount,
+          assetName: asset.name,
+        })
+
+        const feeData = asset.api.getFeeData()
+        feeData.enableFeePayer = false
+
+        const amount = asset.currency.parse('0.0001 SOL')
+
+        const fees = await feesModule.getFees({
+          assetName: asset.name,
+          walletAccount,
+          toAddress: fromAddress,
+          fromAddress,
+          amount,
+          feeData,
+          useFeePayer: true,
+        })
+
+        expect(fees.unsignedTx.txMeta.useFeePayer).toBe(true)
+        expect(fees.unsignedTx.txMeta.usedFeePayer).toBe(false)
       },
     },
   })

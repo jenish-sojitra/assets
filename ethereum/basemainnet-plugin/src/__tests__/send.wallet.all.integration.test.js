@@ -2,11 +2,11 @@
 import { walletTester } from '@exodus/assets-testing'
 import { asset as baseAssetMeta } from '@exodus/basemainnet-meta'
 import { resolveGasPrice } from '@exodus/ethereum-api/src/fee-utils.js'
-import { createNoHistoryServerDescribe } from '@exodus/evm-fork-testing'
+import { createServerDescribe } from '@exodus/evm-fork-testing'
 
 import baseAssetPlugin from '../index.js'
 
-const describeBaseMainnet = createNoHistoryServerDescribe({
+const describeBaseMainnet = createServerDescribe({
   assetName: 'basemainnet',
   baseAssetMeta,
   baseAssetPlugin,
@@ -122,10 +122,11 @@ describeBaseMainnet(
       // Ensure the calculations are consistent:
       const { fee } = await asset.api.getFeeAsync({
         asset,
-        fromAddress: walletAccount,
+        fromAddress: walletAddress,
         toAddress: ADDRESS_DEAD,
         amount,
         txInput: null,
+        walletAccount,
         gasLimit,
         feeData,
       })

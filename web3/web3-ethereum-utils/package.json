@@ -1,7 +1,7 @@
 {
   "name": "@exodus/web3-ethereum-utils",
   "description": "Web3 Ethereum utils.",
-  "version": "4.5.0",
+  "version": "4.5.1",
   "type": "module",
   "sideEffects": false,
   "module": "lib/index.js",
@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@exodus/basic-utils": "^3.0.1",
+    "@exodus/ethereum-lib": "^5.18.1",
     "@exodus/ethereumjs": "^1.5.0",
     "@exodus/solidity-contract": "^1.2.1",
     "@exodus/web3-utils": "^1.50.1",
