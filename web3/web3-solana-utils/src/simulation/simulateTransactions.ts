@@ -264,6 +264,22 @@ const mapResponseTxErrorsToWarnings = (
   return warnings
 }
 
+// Blowfish returns ONE aggregated view of the whole batch, so a failure anywhere in it
+// contaminates the summary of every transaction in it: successful transactions drop out of
+// `expectedStateChanges`, and a `BLOCK` action can come back as `NONE`.
+//
+// That matters because the batch is still signed in full, and `sol_signAllTransactions`
+// returns each transaction separately. A dapp can pair a real transfer with a decoy built to
+// fail simulation, get an approval screen describing neither, then broadcast only the real
+// one. The decoy is never broadcast, so it constrains nothing.
+//
+// Only `aggregated.error` was consulted before this. A per-transaction failure leaves
+// `aggregated.error` null, so a contaminated batch looked clean.
+const isSimulationComplete = (
+  response: ScanTransactionsSolana200Response,
+  error: BlowfishSimulationError | null,
+): boolean => !error && !response.perTransaction.some((tx) => tx.error)
+
 const handleSimulationError = ({
   error,
   simulationResult,
@@ -342,6 +358,24 @@ export const simulateTransactions = async ({
 
   handleSimulationError({ error, simulationResult })
 
+  const simulationIsComplete = isSimulationComplete(response, error)
+
+  // Say so when a BATCH summary is incomplete. mapResponseTxErrorsToWarnings only recognises
+  // insufficient funds, so any other per-transaction failure produced no warning at all.
+  // Scoped to multi-transaction requests: a single failing transaction hides nothing, and
+  // adding a second warning there would only dilute the specific one the user already gets.
+  if (
+    transactions.length > 1 &&
+    !simulationIsComplete &&
+    !simulationResult.warnings.some(({ kind }) => kind === 'INTERNAL_ERROR')
+  ) {
+    simulationResult.warnings.push(INTERNAL_ERROR_WARNING)
+    if (!simulationResult.metadata.humanReadableError) {
+      simulationResult.metadata.humanReadableError =
+        'Balance changes cannot be estimated because part of this request failed to simulate.'
+    }
+  }
+
   if (
     action === 'BLOCK' ||
     warnings.some(({ severity }) => severity === 'CRITICAL')
@@ -375,13 +409,21 @@ export const simulateTransactions = async ({
 
   // This is a self-send transaction, adding a zero "transfer" so that the UI can display it.
   if (noExpectedStateChangesDetected) {
-    simulationResult.balanceChanges.willSend.push({
-      balance: createCurrency({
-        amount: 0,
-        symbol: asset.displayTicker,
-        denominator: asset.currency.defaultUnit.power,
-      }),
-    })
+    // An empty result means "nothing moves" ONLY when the simulation completed. After a
+    // failure it means "we do not know", and the two were indistinguishable here: the zero
+    // went out either way, so a contaminated batch rendered as a confident `0` next to a
+    // warning saying balance changes could not be estimated. State a zero only when it was
+    // actually established.
+    if (simulationIsComplete) {
+      // This is a self-send transaction, adding a zero "transfer" so that the UI can display it.
+      simulationResult.balanceChanges.willSend.push({
+        balance: createCurrency({
+          amount: 0,
+          symbol: asset.displayTicker,
+          denominator: asset.currency.defaultUnit.power,
+        }),
+      })
+    }
 
     return
   }
