@@ -245,6 +245,46 @@ export function exposeHandlers(rpc: RPC, deps: AppDeps & EVMDeps & WalletDeps) {
     }
   }
 
+  // Bind the sender to the account that will actually sign, BEFORE anything reads it.
+  //
+  // An EVM transaction does not serialise `from`; the real sender is recovered from the
+  // signature. So a dapp-supplied `from` is an unverified claim about identity, while
+  // `getActiveWalletAccountData()` further down signs with whatever account is active. That
+  // divergence was reachable end to end: the dapp's address was forwarded to the simulation
+  // as both `txObjects[].from` and `userAccount`, so the approval screen described THAT
+  // account's expected state changes, and the signature then committed the same `to` and
+  // calldata as the victim. A contract keyed on `msg.sender` therefore runs a branch the
+  // user was never shown, and a simulated no-op becomes a real transfer.
+  //
+  // A mismatch is REJECTED rather than silently overwritten. The JSON-RPC contract for
+  // eth_signTransaction is that `from` names the account to sign with, so a caller that
+  // asked for one sender and received a signature from another has had its request
+  // altered, which is its own correctness problem.
+  //
+  // The same invariant is already enforced on the WalletConnect path, which calls
+  // checkAddressMatch(payload.from, privateKey) before signing. This makes the Web3
+  // Browser path agree with it.
+  async function withVerifiedSender(
+    transaction: EthTransaction,
+  ): Promise<EthTransaction> {
+    const activeAddress = await getAddress()
+    const requested = transaction.from
+
+    if (
+      requested !== undefined &&
+      requested !== null &&
+      String(requested).toLowerCase() !== String(activeAddress).toLowerCase()
+    ) {
+      throw new InvalidInputError(
+        'transaction.from does not match the active account',
+      )
+    }
+
+    // Canonicalise it, so gas estimation, simulation, the approval screen and the signer
+    // all read one sender rather than each resolving its own.
+    return { ...transaction, from: activeAddress }
+  }
+
   async function approveAndSignTransaction(
     transaction: EthTransaction,
   ): Promise<string> {
@@ -253,7 +293,10 @@ export function exposeHandlers(rpc: RPC, deps: AppDeps & EVMDeps & WalletDeps) {
 
     const asset = await getAsset(network)
 
-    const preparedTransaction = await prepareTransaction(transaction)
+    // Verified FIRST, so gas estimation and simulation both see the real sender.
+    const verifiedTransaction = await withVerifiedSender(transaction)
+
+    const preparedTransaction = await prepareTransaction(verifiedTransaction)
     validateTransaction(preparedTransaction)
 
     const origin = getOrigin()
