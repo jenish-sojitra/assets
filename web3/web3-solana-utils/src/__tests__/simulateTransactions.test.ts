@@ -535,6 +535,134 @@ describe('simulateTransaction', () => {
       'Simulation is not supported for this asset.',
     )
   })
+
+  // ---------------------------------------------------------------- batch contamination
+  //
+  // Blowfish aggregates the whole batch into one result. A transaction built to fail
+  // simulation therefore erases the state changes of the real transaction beside it, while
+  // the wallet still signs both and returns them separately. These assert the summary is
+  // never stated more confidently than the simulation supports.
+
+  const batchOf = (n: number) => Array.from({ length: n }, () => transactions[0]!)
+
+  it('does not report a zero balance change when a transaction in the batch failed to simulate', async () => {
+    mockMakeSimulationAPICall.mockResolvedValueOnce({
+      aggregated: {
+        action: 'NONE',
+        warnings: [],
+        error: { kind: 'SIMULATION_FAILED', humanReadableError: 'InvalidInstructionData' },
+        expectedStateChanges: {},
+      },
+      perTransaction: [
+        { error: null },
+        { error: { humanReadableError: 'InvalidInstructionData' } },
+      ],
+    })
+
+    const simulationResult = createEmptySimulationResult({ asset })
+
+    await simulateTransactions({
+      asset,
+      transactions: batchOf(2),
+      apiEndpoint,
+      origin,
+      simulationResult,
+      senderAddress,
+    })
+
+    expect(simulationResult.balanceChanges.willSend).toEqual([])
+    expect(
+      simulationResult.warnings.some(({ kind }) => kind === 'INTERNAL_ERROR'),
+    ).toBe(true)
+  })
+
+  // The dangerous variant: `aggregated.error` stays null and only `perTransaction` carries
+  // the failure, so nothing in the old code noticed and the batch looked clean.
+  it('flags a batch whose failure appears only in perTransaction', async () => {
+    mockMakeSimulationAPICall.mockResolvedValueOnce({
+      aggregated: { action: 'NONE', warnings: [], error: null, expectedStateChanges: {} },
+      perTransaction: [
+        { error: null },
+        { error: { kind: 'TRANSACTION_ERROR', humanReadableError: 'Insufficient funds' } },
+      ],
+    })
+
+    const simulationResult = createEmptySimulationResult({ asset })
+
+    await simulateTransactions({
+      asset,
+      transactions: batchOf(2),
+      apiEndpoint,
+      origin,
+      simulationResult,
+      senderAddress,
+    })
+
+    expect(simulationResult.balanceChanges.willSend).toEqual([])
+    expect(
+      simulationResult.warnings.some(({ kind }) => kind === 'INTERNAL_ERROR'),
+    ).toBe(true)
+  })
+
+  it('still reports a zero balance change for a clean self-send', async () => {
+    mockMakeSimulationAPICall.mockResolvedValueOnce({
+      aggregated: { action: 'NONE', warnings: [], error: null, expectedStateChanges: {} },
+      perTransaction: [{ error: null }],
+    })
+
+    const simulationResult = createEmptySimulationResult({ asset })
+
+    await simulateTransactions({
+      asset,
+      transactions,
+      apiEndpoint,
+      origin,
+      simulationResult,
+      senderAddress,
+    })
+
+    expect(simulationResult.balanceChanges.willSend).toHaveLength(1)
+    expect(
+      simulationResult.warnings.some(({ kind }) => kind === 'INTERNAL_ERROR'),
+    ).toBe(false)
+  })
+
+  // A single failing transaction hides nothing, so the specific warning the user already
+  // gets must not be diluted by a second, vaguer one.
+  it('does not add a batch warning to a single failing transaction', async () => {
+    mockMakeSimulationAPICall.mockResolvedValueOnce({
+      aggregated: { action: 'NONE', warnings: [], error: null, expectedStateChanges: {} },
+      perTransaction: [
+        {
+          error: {
+            kind: 'PROGRAM_ERROR',
+            humanReadableError:
+              'account does not have enough SOL to perform the operation',
+          },
+        },
+      ],
+    })
+
+    const simulationResult = createEmptySimulationResult({ asset })
+
+    await simulateTransactions({
+      asset,
+      transactions,
+      apiEndpoint,
+      origin,
+      simulationResult,
+      senderAddress,
+    })
+
+    expect(simulationResult.warnings).toEqual([
+      {
+        kind: 'INSUFFICIENT_FUNDS',
+        severity: 'WARNING',
+        message: 'Insufficient funds to perform the operation.',
+      },
+    ])
+  })
+
 })
 
 describe('getTransactionFee', () => {
